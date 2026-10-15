@@ -36,35 +36,35 @@ Instead of relying on ungrounded LLM narratives, BankMind AI routes user inquiri
 
 ## 2. Architecture & Data Flow
 
-```mermaid
+`````````mermaid
 flowchart TD
-    User([Bank Operator / Customer]) --> UI["BankMind AI Web UI (React + Vite + Tailwind)"]
-    UI -->|REST & Chat Endpoints| API[FastAPI Application Gateway]
-    
-    subgraph MultiAgentEngine ["Multi-Agent Orchestration Layer"]
-        API --> Orchestrator[Orchestration Engine]
-        Orchestrator --> Supervisor[Supervisor Agent]
-        Supervisor -->|Classify & Route| Provider[Google Gemini / Deterministic Fallback Router]
-        
-        Supervisor -->|Account & Balances| BA[Banking Agent]
-        Supervisor -->|Fraud & Risk Rules| RA[Risk & Fraud Agent]
-        Supervisor -->|EMI & DTI Underwriting| CA[Credit & Loan Agent]
-        Supervisor -->|Policy & Governance| COMP[Compliance Agent]
+    User["Bank Operator / Customer"] --> UI["BankMind AI Web UI (React + Vite + Tailwind)"]
+    UI -->|REST and Chat Endpoints| API["FastAPI Application Gateway"]
+
+    subgraph MultiAgentEngine["Multi-Agent Orchestration Layer"]
+        API --> Orchestrator["Orchestration Engine"]
+        Orchestrator --> Supervisor["Supervisor Agent"]
+        Supervisor -->|Classify and Route| Provider["Google Gemini / Deterministic Fallback Router"]
+
+        Supervisor -->|Account and Balances| BA["Banking Agent"]
+        Supervisor -->|Fraud and Risk Rules| RA["Risk and Fraud Agent"]
+        Supervisor -->|EMI and DTI Underwriting| CA["Credit and Loan Agent"]
+        Supervisor -->|Policy and Governance| COMP["Compliance Agent"]
     end
 
-    subgraph ToolsStorage ["Deterministic Python Tools & SQLite"]
-        BA --> Tools[Simulated Banking Tools Layer]
+    subgraph ToolsStorage["Deterministic Python Tools and SQLite"]
+        BA --> Tools["Simulated Banking Tools Layer"]
         RA --> Tools
         CA --> Tools
         COMP --> Tools
-        
-        Tools --> DB[(SQLite Database - Seeded Demo Records)]
-        COMP --> AuditLog[(Immutable Audit Trail)]
-        Supervisor --> TracesLog[(Execution Traces Store)]
+
+        Tools --> DB[("SQLite Database - Seeded Demo Records")]
+        COMP --> AuditLog[("Audit Trail")]
+        Supervisor --> TracesLog[("Execution Traces Store")]
     end
 
     Tools -->|Typed Result Dictionaries| Supervisor
-    Supervisor -->|Grounded Answer + Traces| API
+    Supervisor -->|Grounded Answer and Traces| API
     API -->|JSON with Telemetry| UI
 ```
 
