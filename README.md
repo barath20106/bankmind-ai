@@ -1,271 +1,354 @@
-# BankMind AI — Multi-Agent Banking Intelligence Platform
+# 🏦 BankMind AI
 
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-teal.svg)](https://fastapi.tiangolo.com)
-[![React 19](https://img.shields.io/badge/React-19-61dafb.svg)](https://react.dev)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4+-38bdf8.svg)](https://tailwindcss.com)
-[![Tests Passing](https://img.shields.io/badge/tests-35%20passed-emerald.svg)]()
-[![License](https://img.shields.io/badge/license-MIT-gray.svg)]()
+### Multi-Agent Banking Intelligence Platform
 
-> **Technical Assessment Submission**: *Build an Application for Simulated Real-Time Banking Architecture with Multi-Agent Automation using Experimental Models.*
+**Intelligent banking workflows powered by specialized agents, deterministic tools, and explainable execution traces.**
 
----
+BankMind AI is a full-stack banking intelligence application that demonstrates how a coordinated multi-agent system can support simulated banking operations, transaction analysis, fraud investigation, loan assessment, and compliance monitoring through a unified interface.
 
-## 1. Project Overview
-
-**BankMind AI** is a simulated real-time banking operations and intelligence platform. It features an autonomous **Supervisor Agent** that orchestrates specialized domain agents (**Banking**, **Risk & Fraud**, **Credit & Loan**, **Compliance**). 
-
-Instead of relying on ungrounded LLM narratives, BankMind AI routes user inquiries to specialized agents that invoke actual, typed Python banking tools backed by an ACID-compliant **SQLite** database.
-
-### Key Highlights
-- **Grounded Multi-Agent System**: Supervisor classifies intent, coordinates specialist agents, calls real Python banking tools, and formats grounded responses.
-- **Dual-Mode AI Engine**: Seamless integration with **Google Gemini** (`gemini-2.5-flash`) via the official `google-genai` SDK, with an automated fallback to **Deterministic Demo Mode** when an API key is not configured.
-- **9 Professional Operations Screens**:
-  1. Executive Dashboard (KPIs & Volume Charts)
-  2. AI Banking Assistant (Interactive Chat & Real-Time Telemetry Timeline)
-  3. Customer Directory & Account Profile
-  4. Accounts & Transaction Ledger
-  5. Fraud & Risk Surveillance Center (Deterministic Rule Investigator)
-  6. Credit Underwriting & Loan Eligibility (Interactive EMI & DTI Simulator)
-  7. Multi-Agent Execution Traces (Step-by-step Telemetry & JSON Payloads)
-  8. Regulatory & Compliance Audit Trail (Immutable Security Logs)
-  9. Settings & Model Status (Gemini Provider Status & Health)
-- **Comprehensive Test Suite**: 35 automated tests covering banking tools, fraud heuristics, amortization math, supervisor routing, API routes, and edge cases.
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="Python and FastAPI"/>
+  <img src="https://img.shields.io/badge/React-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="React and TypeScript"/>
+  <img src="https://img.shields.io/badge/AI-Google%20Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white" alt="Google Gemini"/>
+  <img src="https://img.shields.io/badge/Database-SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite"/>
+</p>
 
 ---
 
-## 2. Architecture & Data Flow
+## ✨ Overview
 
-`````````mermaid
-flowchart TD
-    User["Bank Operator / Customer"] --> UI["BankMind AI Web UI (React + Vite + Tailwind)"]
-    UI -->|REST and Chat Endpoints| API["FastAPI Application Gateway"]
+Traditional banking workflows involve multiple responsibilities, from retrieving account information to examining suspicious transactions and assessing loan affordability. BankMind AI demonstrates how these responsibilities can be organized into specialized agents coordinated by a central Supervisor Agent.
 
-    subgraph MultiAgentEngine["Multi-Agent Orchestration Layer"]
-        API --> Orchestrator["Orchestration Engine"]
-        Orchestrator --> Supervisor["Supervisor Agent"]
-        Supervisor -->|Classify and Route| Provider["Google Gemini / Deterministic Fallback Router"]
+The platform combines:
 
-        Supervisor -->|Account and Balances| BA["Banking Agent"]
-        Supervisor -->|Fraud and Risk Rules| RA["Risk and Fraud Agent"]
-        Supervisor -->|EMI and DTI Underwriting| CA["Credit and Loan Agent"]
-        Supervisor -->|Policy and Governance| COMP["Compliance Agent"]
-    end
+- A modern React and TypeScript frontend.
+- A Python FastAPI backend.
+- A supervisor-led multi-agent architecture.
+- Deterministic banking tools and simulated financial data.
+- Optional Google Gemini integration.
+- Execution traces and application audit events.
 
-    subgraph ToolsStorage["Deterministic Python Tools and SQLite"]
-        BA --> Tools["Simulated Banking Tools Layer"]
-        RA --> Tools
-        CA --> Tools
-        COMP --> Tools
+The result is a unified environment for exploring AI-assisted banking workflows while keeping data retrieval and financial calculations grounded in application logic.
 
-        Tools --> DB[("SQLite Database - Seeded Demo Records")]
-        COMP --> AuditLog[("Audit Trail")]
-        Supervisor --> TracesLog[("Execution Traces Store")]
-    end
+> **Important:** BankMind AI is an educational simulation. It is not connected to real banking infrastructure and must not be used for actual financial, lending, fraud, or regulatory decisions.
 
-    Tools -->|Typed Result Dictionaries| Supervisor
-    Supervisor -->|Grounded Answer and Traces| API
-    API -->|JSON with Telemetry| UI
+## 🚀 Key Features
+
+### 🧠 Multi-Agent Orchestration
+
+A central Supervisor Agent coordinates specialized agents according to the user's request. This separates responsibilities and makes supported workflows easier to understand and inspect.
+
+### 🏦 Banking Intelligence
+
+- Explore seeded customer and account records.
+- Inspect simulated account balances and transactions.
+- Analyze spending activity and cash-flow patterns.
+- Retrieve banking information through application tools.
+
+### 🛡️ Fraud and Risk Analysis
+
+- Investigate suspicious transactions in the demo dataset.
+- Evaluate risk indicators using application-defined rules.
+- Review risk scores and severity classifications.
+- Inspect recommended actions and related execution records where supported.
+
+### 💳 Credit and Loan Assessment
+
+- Calculate estimated monthly installments (EMIs).
+- Examine debt-to-income (DTI) ratios.
+- Explore simulated loan assessment results.
+- Review the parameters behind affordability calculations.
+
+### 📜 Compliance and Auditability
+
+- Record relevant application events.
+- Inspect the audit trail.
+- Review execution traces from supported agent workflows.
+- Understand how traceability can support banking-oriented applications.
+
+### 💬 Interactive Banking Assistant
+
+A unified conversational interface accepts supported banking requests and coordinates the relevant backend workflow.
+
+### ⚙️ Flexible AI Integration
+
+Google Gemini is supported through the `google-genai` SDK. Deterministic fallback behavior allows supported workflows to remain available when live AI integration is not configured or cannot be used.
+
+---
+
+## 🏗️ Architecture
+
+BankMind AI follows a layered architecture that separates the user interface, API handling, agent orchestration, deterministic tools, and data storage.
+
+### 1. Frontend Layer
+
+**React · TypeScript · Vite · Tailwind CSS · Recharts**
+
+The frontend provides an interactive dashboard and dedicated screens for banking operations, customer information, fraud investigation, credit assessment, audit events, execution traces, and model settings.
+
+### 2. API Layer
+
+**Python · FastAPI · Pydantic**
+
+FastAPI exposes backend endpoints to the frontend. Pydantic supports structured input and output validation, while API routes connect incoming requests to the relevant application logic.
+
+### 3. Agent Orchestration Layer
+
+The Supervisor Agent acts as the coordination point for supported workflows.
+
+| Agent | Responsibility |
+|---|---|
+| **Supervisor Agent** | Classifies requests, coordinates specialist workflows, and synthesizes responses |
+| **Banking Agent** | Handles account, balance, transaction, and spending-related operations |
+| **Risk & Fraud Agent** | Evaluates suspicious transactions and risk indicators using application rules |
+| **Credit & Loan Agent** | Supports EMI calculations, DTI analysis, and simulated loan assessment |
+| **Compliance Agent** | Supports policy-related checks and audit logging |
+
+### 4. Deterministic Tools Layer
+
+Specialized agents use Python tools to retrieve simulated banking data or perform supported calculations.
+
+Examples include:
+
+- Account and balance retrieval.
+- Transaction lookup and spending analysis.
+- Rule-based fraud risk evaluation.
+- Loan installment and affordability calculations.
+- Audit event operations.
+
+These tools return structured results that can be used by the surrounding agent workflow.
+
+### 5. Data and Observability Layer
+
+**SQLite · SQLAlchemy · Execution Traces · Audit Events**
+
+SQLite stores the application's simulated records, with SQLAlchemy providing database access. Execution traces help expose workflow activity, while audit events record relevant application operations.
+
+### Request lifecycle
+
+1. A user submits a question or initiates a banking operation.
+2. FastAPI receives and validates the request.
+3. The Supervisor Agent classifies and coordinates the supported workflow.
+4. A specialist agent invokes the appropriate application tools.
+5. Tools retrieve data or perform deterministic calculations.
+6. Structured results return to the orchestration layer.
+7. The application synthesizes a response and records relevant execution or audit information.
+
+This separation makes the application easier to navigate, maintain, and extend.
+
+---
+
+## 🤖 AI Integration and Fallback
+
+BankMind AI supports Google Gemini through the official `google-genai` SDK.
+
+### Google Gemini mode
+
+When a valid API key is configured and the provider is available, supported AI operations can use the configured Gemini model.
+
+### Deterministic demo mode
+
+When the AI provider is not configured or cannot be used, supported workflows can fall back to deterministic behavior.
+
+### Why combine AI with deterministic tools?
+
+| AI-assisted operations | Deterministic operations |
+|---|---|
+| Supported natural-language processing | Account and transaction retrieval |
+| Request classification and orchestration support | Financial formula calculations |
+| Response synthesis | Application-defined risk rules |
+| Conversational interaction | Structured data and tool results |
+
+The exact responsibilities depend on the implemented workflow. AI-generated text should not replace verified application data or deterministic calculations.
+
+---
+
+## 🧰 Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| React | Component-based user interface |
+| TypeScript | Frontend type safety |
+| Vite | Frontend development and build tooling |
+| Tailwind CSS | Interface styling |
+| Recharts | Charts and data visualization |
+| Python | Backend implementation |
+| FastAPI | API gateway and request handling |
+| Pydantic | Data validation |
+| SQLAlchemy | Database access |
+| SQLite | Local simulated banking database |
+| Google Gemini | Optional AI integration |
+| `google-genai` | Google Gen AI SDK |
+| pytest | Backend automated testing |
+
+---
+
+## 📁 Project Structure
+
+```text
+bankmind-ai/
+├── backend/
+│   ├── app/
+│   │   ├── agents/
+│   │   │   ├── banking.py
+│   │   │   ├── compliance.py
+│   │   │   ├── credit_loan.py
+│   │   │   ├── risk_fraud.py
+│   │   │   └── supervisor.py
+│   │   ├── api/
+│   │   │   └── routes/
+│   │   ├── core/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   ├── tools/
+│   │   ├── main.py
+│   │   └── seed.py
+│   ├── tests/
+│   ├── .env.example
+│   ├── requirements.txt
+│   └── verify_e2e.py
+├── frontend/
+│   ├── public/
+│   └── src/
+│       ├── assets/
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       ├── types/
+│       ├── App.tsx
+│       └── main.tsx
+├── ARCHITECTURE.md
+├── DEMO_SCRIPT.md
+├── .env.example
+├── .gitignore
+└── README.md
 ```
 
 ---
 
-## 3. Technology Stack
+## ⚡ Getting Started
 
-- **Backend**:
-  - Python 3.11+
-  - FastAPI (REST API with Pydantic v2 schemas)
-  - SQLAlchemy 2.0 (ORM)
-  - SQLite (Local ACID database with WAL mode)
-  - Google Gen AI Python SDK (`google-genai`)
-  - Pytest & HTTPX (Automated test suite)
-- **Frontend**:
-  - React 19 (TypeScript)
-  - Vite (Build tool & HMR)
-  - Tailwind CSS (Dark navy sidebar, light-gray content panels, blue/teal accents)
-  - Lucide React (Icons)
-  - Recharts (Interactive telemetry and clearing volume charts)
+### Prerequisites
 
----
+Install the following:
 
-## 4. Prerequisites
+- Git
+- Python 3.11 or a compatible version supported by the project dependencies
+- Node.js and npm
 
-- **Python 3.11 or higher**
-- **Node.js 18 or higher** (LTS recommended)
-- **npm 9+**
+### 1. Clone the repository
 
----
-
-## 5. Installation & Setup
-
-### Clone and Environment Setup
 ```bash
-# Clone the repository
-git clone https://github.com/your-username/bankmind-ai.git
+git clone https://github.com/barath20106/bankmind-ai.git
 cd bankmind-ai
 ```
 
-### Backend Setup
+### 2. Set up the backend
 
-#### Windows PowerShell:
+From the project root, open PowerShell:
+
 ```powershell
-# 1. Create Python virtual environment
-python -m venv .venv
-
-# 2. Activate virtual environment
+cd backend
+py -m venv .venv
 .\.venv\Scripts\Activate.ps1
-
-# 3. Install backend dependencies
-pip install -r backend\requirements.txt
-
-# 4. (Optional) Configure environment variables
-# Copy template
-Copy-Item backend\.env.example backend\.env
+pip install -r requirements.txt
 ```
 
-#### macOS / Linux:
-```bash
-# 1. Create Python virtual environment
-python3 -m venv .venv
+Create your local environment file:
 
-# 2. Activate virtual environment
-source .venv/bin/activate
-
-# 3. Install backend dependencies
-pip install -r backend/requirements.txt
-
-# 4. (Optional) Configure environment variables
-cp backend/.env.example backend/.env
-```
-
-> **Note on GEMINI_API_KEY**:
-> If you have a Google Gemini API key, add it to `backend/.env`:
-> ```env
-> GEMINI_API_KEY=your_actual_api_key_here
-> GEMINI_MODEL=gemini-2.5-flash
-> ```
-> **If no API key is provided**, BankMind AI automatically activates **Deterministic Demo Mode**. All 5 required use cases and dashboard functions run with 100% functionality without requiring an external API key!
-
----
-
-### Frontend Setup
-
-```bash
-cd frontend
-npm install
-cd ..
-```
-
----
-
-## 6. Running the Application
-
-### 1. Start the FastAPI Backend
-Open a terminal in the project root:
-
-**Windows PowerShell:**
 ```powershell
-.\.venv\Scripts\Activate.ps1
-$env:PYTHONPATH="backend"
-uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+Copy-Item .env.example .env
 ```
 
-**macOS / Linux:**
-```bash
-source .venv/bin/activate
-export PYTHONPATH="backend"
-uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
-```
-*The database automatically creates and seeds demo records on first startup.*
-- API documentation: `http://127.0.0.1:8000/docs`
-- Health check: `http://127.0.0.1:8000/api/health`
+Open `backend/.env` and configure the Gemini settings if you want live AI integration:
 
-### 2. Start the React Frontend
+```dotenv
+GEMINI_API_KEY=your_actual_api_key
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+Replace the placeholder locally with your own API key. **Never commit a real API key to GitHub.**
+
+If no key is configured, use the supported deterministic demo mode.
+
+Start the backend from the `backend` directory:
+
+```powershell
+uvicorn app.main:app --reload
+```
+
+The default local endpoints are:
+
+- Backend API: `http://127.0.0.1:8000`
+- Interactive API documentation: `http://127.0.0.1:8000/docs`
+
+### 3. Set up the frontend
+
 Open a second terminal in the project root:
 
-```bash
+```powershell
 cd frontend
+npm install
 npm run dev
 ```
-Open your browser to: **`http://localhost:5173`**
+
+Open the local URL displayed by Vite. The default development URL is:
+
+`http://localhost:5173`
+
+Keep both development servers running while using the application.
+
+> If your environment uses a different Python launcher, port, or configuration, follow the existing project settings and terminal output.
 
 ---
 
-## 7. Running Automated Tests & Verification
+## 🧪 Testing
 
-### Run Pytest Backend Test Suite (35 Tests)
-```powershell
-# Windows
-$env:PYTHONPATH="backend"
-.\.venv\Scripts\pytest -v backend\tests
+Automated backend tests are located in `backend/tests`.
 
-# macOS / Linux
-export PYTHONPATH="backend"
-pytest -v backend/tests
-```
+After installing the backend dependencies, run the test suite from the project root:
 
-### Run End-to-End Use Case Verification Script
-```powershell
-# Runs all 5 required use cases through supervisor agent
-python backend/verify_e2e.py
-```
-
-### Run Frontend Typecheck & Production Build
 ```bash
-cd frontend
-npm run build
+python -m pytest backend/tests -v
 ```
 
----
+Use the Python executable from your project's virtual environment if necessary.
 
-## 8. Five Core Assessment Use Cases
-
-| Use Case | Natural-Language Prompt | Specialist Agent(s) | Expected Grounded Tool Execution |
-| :--- | :--- | :--- | :--- |
-| **UC 1: Account Inquiry** | *"What is the current balance of customer CUST-1001?"* | `BankingAgent` | Invokes `get_customer` & `get_accounts`. Returns ₹185,420.50 (Savings) + ₹42,300.00 (Salary). Combined: ₹227,720.50. |
-| **UC 2: Transaction Analysis** | *"Show the last 10 transactions for customer CUST-1001 and summarize their spending."* | `BankingAgent` | Invokes `get_transactions` & `calculate_spending_summary`. Calculates Debits (₹354,350), Credits (₹95,000), Net Cashflow, and category distribution. |
-| **UC 3: Fraud Investigation** | *"Investigate transaction TXN-3001. Why was it flagged?"* | `RiskFraudAgent`, `ComplianceAgent` | Invokes `analyze_transaction_risk`. Returns **Risk Score: 100/100 (CRITICAL)**. Reasons: Offshore Dubai wire exceeding ₹200k threshold. Recommended action: `BLOCK_AND_VERIFY`. |
-| **UC 4: Loan Underwriting** | *"Can customer CUST-1002 qualify for a loan of ₹300000 over 36 months?"* | `CreditLoanAgent`, `ComplianceAgent` | Invokes `calculate_loan_eligibility`. Evaluates Priya Patel (Score: 780). Computes monthly EMI ₹9,609.88, DTI 13.26% (ceiling 40%). Result: **APPROVED (ELIGIBLE)**. |
-| **UC 5: Cross-Agent Review** | *"Review customer CUST-1001's spending, check for suspicious activity, and suggest whether a loan payment would be affordable."* | `BankingAgent`, `RiskFraudAgent`, `CreditLoanAgent`, `ComplianceAgent` | **11-step execution**: Aggregates liquidity surplus, detects critical flag on TXN-3001, calculates hypothetical EMI, and synthesizes unified recommendation. |
+An end-to-end verification script is also included at `backend/verify_e2e.py`.
 
 ---
 
-## 9. API Endpoints Reference
+## 🔐 Security and Responsible Use
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/api/health` | Health check, DB status, active LLM provider/model metadata |
-| `GET` | `/api/dashboard/summary` | Summary cards, clearing volume chart series, recent activity |
-| `GET` | `/api/customers` | Searchable customer list with pagination |
-| `GET` | `/api/customers/{id}` | Customer profile details |
-| `GET` | `/api/customers/{id}/accounts` | Linked accounts and balances for customer |
-| `GET` | `/api/customers/{id}/transactions` | Filtered transaction history for customer |
-| `GET` | `/api/accounts` | All simulated bank accounts |
-| `GET` | `/api/transactions` | Full ledger with category and flag filters |
-| `GET` | `/api/fraud/alerts` | Active surveillance alerts queue |
-| `POST` | `/api/fraud/analyze` | Deterministic fraud risk analysis for any transaction ID |
-| `GET` | `/api/loans` | Historical and active loan applications |
-| `POST` | `/api/loans/eligibility` | Automated underwriting calculator (DTI, EMI, score) |
-| `POST` | `/api/loans/emi` | Standard loan amortization calculation |
-| `POST` | `/api/chat` | AI Banking Assistant endpoint returning answer + execution traces |
-| `GET` | `/api/agents` | Agent registry with capabilities and registered tools |
-| `GET` | `/api/traces` | Multi-agent execution telemetry and payloads |
-| `GET` | `/api/audit` | Immutable compliance and governance events log |
+BankMind AI is an educational prototype, not a production banking system.
+
+- It uses simulated or seeded banking records.
+- It is not connected to real bank accounts or payment networks.
+- Fraud indicators are application-generated results, not proof of criminal activity.
+- Loan eligibility results are simulations, not lending decisions.
+- Compliance workflows demonstrate application-level checks and logging; they do not establish regulatory certification.
+- Audit events and execution traces support inspection but should not be considered tamper-proof without additional integrity protections.
+- AI provider availability and output quality depend on configuration and provider behavior.
+- Production use would require appropriate authentication, authorization, data protection, security reviews, monitoring, and human oversight.
+
+### API key safety
+
+- Store credentials in local `.env` files.
+- Keep real environment files excluded from version control.
+- Commit only placeholder configuration in `.env.example`.
+- Rotate any credential that has been exposed.
 
 ---
 
-## 10. Troubleshooting
+## 📚 Related Documentation
 
-- **Port 8000 or 5173 in use**:
-  - FastAPI: change `--port 8001` and update `vite.config.ts` target.
-  - Vite: Vite automatically selects the next available port (e.g. 5174).
-- **Missing or corrupted database**:
-  - Run `python backend/app/seed.py` to recreate and seed `bankmind.db`.
-- **Node.js path issues on Windows**:
-  - Ensure Node.js is in your environment PATH: `Get-Command node`.
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) — detailed system architecture and design.
+- [`DEMO_SCRIPT.md`](DEMO_SCRIPT.md) — application walkthrough and demonstration flow.
 
 ---
 
-## 11. Security & Compliance Disclaimer
-
-> **IMPORTANT**: BankMind AI is an educational simulation built for technical assessment and demonstration purposes. All customer identities, accounts, transaction amounts, credit scores, and fraud alerts are fictional. No actual financial transactions or binding credit sanctions are performed. Real banking credentials should never be input into this application.
+<p align="center">
+  <strong>BankMind AI</strong><br/>
+  Specialized agents. Grounded tools. Traceable workflows.
+</p>
